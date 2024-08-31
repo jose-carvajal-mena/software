@@ -1,0 +1,19 @@
+.custom-table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.custom-table th, .custom-table td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+.upload-button {
+    margin-top: 20px;
+}
+
+.submit-button{
+    margin-top: 20px;
+}
