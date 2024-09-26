@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, Button, Modal, Form } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import './Table.css';
 
 const EntregablesTable = () => {
     const [entregables, setEntregables] = useState([]);
-    const [show, setShow] = useState(false);
-    const [file, setFile] = useState(null);
+
 
     useEffect(() => {
         fetchEntregables();
@@ -17,29 +16,7 @@ const EntregablesTable = () => {
         setEntregables(response.data);
     };
 
-    const handleShow = () => setShow(true);
-    const handleClose = () => setShow(false);
-
-    const handleFileChange = (event) => {
-        setFile(event.target.files[0]);
-    };
-
-    const handleUpload = async (event) => {
-        event.preventDefault();
-        const formData = new FormData();
-        formData.append('file', file);
-        try {
-            await axios.post('/api/upload_excel/', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-            handleClose();
-            fetchEntregables(); // Actualiza la tabla después de subir el archivo
-        } catch (error) {
-            console.error('Error uploading file:', error);
-        }
-    };
+    
 
     return (
         <div className="table-container">
@@ -80,26 +57,6 @@ const EntregablesTable = () => {
                     ))}
                 </tbody>
             </Table>
-            <Button variant="primary" onClick={handleShow} className="upload-button">
-                Upload Excel
-            </Button>
-
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Upload Excel</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form onSubmit={handleUpload}>
-                        <Form.Group controlId="formFile">
-                            <Form.Label>Seleccione un Archivo Excel</Form.Label>
-                            <Form.Control type="file" onChange={handleFileChange} />
-                        </Form.Group>
-                        <Button variant="primary" type="submit" className="submit-button">
-                            Upload
-                        </Button>
-                    </Form>
-                </Modal.Body>
-            </Modal>
         </div>
     );
 };

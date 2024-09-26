@@ -9,7 +9,6 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<Table />} />
                 <Route path="/upload" element={<UploadExcel />} />
-
                 <Route path="/usuario" element={<Usuario />} />
             </Routes>
         </Router>
